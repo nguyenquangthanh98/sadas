@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang home ADMIN</title>
+    <link rel="stylesheet" href="/css/style-home.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugin/simplePagination.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="/plugin/jquery.simplePagination.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <button type="button" id="btn-logOut">LOG OUT</button>
+    <main>
+        <div class="container my-5">
+            <div class="card-body text-center">
+                <h4 class="card-title text-uppercase abc">List Công việc</h4>
+            </div>
+            <div class="card">
+                <button id="add__new__list" type="button" class="btn btn-outline-danger btn-add font-weight-bold text-danger position-absolute" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Thêm</button>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-uppercase text-danger">List Job</th>
+                            <th class="text-uppercase text-danger">Deadline</th>
+                            <th class="text-uppercase text-danger">Edit / Delete </th>
+                            <th class="text-uppercase text-danger">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="noidung">
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- Add modal -->
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="card-body text-center">
+                            <h4 class="card-title text-uppercase">Add Job</h4>
+                        </div>
+                        <div class=" card col-8 offset-2 my-2 p-3">
+                            <form>
+                                <div class="form-group">
+                                    <label for="listjob" class="text-uppercase">Name Job</label>
+                                    <input type="text" class="form-control" maxlength="200" name="nameJob" id="nameJob" placeholder="Name Job">
+                                </div>
+                                <div class="form-group">
+                                    <label for="datepicker" class="text-uppercase">Leader</label>
+                                    <input type="text" class="form-control" name="leader" id="leader" placeholder="Name Leader">
+                                </div>
+                                <div class="form-group text-center ">
+                                    <button type="button" id="btn-add" class="btn btn-block btn-primary text-uppercase">Add Database</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit modal -->
+            <div id="showEdit" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="card-body text-center">
+                            <h4 class="card-title text-uppercase">Sửa dữ liệu</h4>
+                        </div>
+                        <div class=" card col-8 offset-2 my-2 p-3">
+                            <form>
+                                <div class="form-group text-uppercase">
+                                    <label for="nameJob ">Name Job</label>
+                                    <input type="text" class="form-control" name="listname" id="editNameJob" placeholder="Name Job">
+                                </div>
+                                <div class="form-group text-uppercase">
+                                    <label for="nameLeader">Name Leader</label>
+                                    <input type="text" class="form-control" name="nameLeder" id="editNameLeader" placeholder="Name Leader">
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="button" id="btn-edit" class="btn btn-block btn-primary text-uppercase"><strong>Edit Database</strong></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div id="showDetails" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="card-body text-center">
+                            <h4 class="card-title text-uppercase">Chi tiết dữ liệu</h4>
+                        </div>
+                        <div class=" card col-8 offset-2 my-2 p-3">
+                            <form>
+                                <div class="form-group text-uppercase">
+                                    <label for="listjob ">Name Job</label>
+                                    <input type="text" readonly class="form-control" name="listname" id="detailsNameJob" placeholder="Name Job">
+                                </div>
+                                <div class="form-group text-uppercase">
+                                    <label for="datepicker ">Leader</label>
+                                    <input type="text" readonly class="form-control" name="leader" id="detailsLeader" placeholder="leader">
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn btn-secondary text-uppercase " data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="chuyenPages d-flex justify-content-center my-3">
+        </div>
+    </main>
+</body>
+
+</html>
+<script>
+    function loadPage(pageNumber) {
+        console.log('Page: ' + pageNumber);
+        $.ajax({
+            url: '/api/pages/' + pageNumber,
+            method: "get"
+        }).then(function(data) {
+            console.log(data);
+            $('#noidung').html('') //resert lại trang 
+
+            for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                $('#noidung').append(`
+                            <tr id=${element._id}>
+                                <td class="title"><strong>${element.title}</strong></td>
+                                <td class="content"><strong>${element.content}</strong></td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" onClick = "edit('${element._id}','${element.title}','${element.content}')" href="#"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
+                                    <a class="btn btn-sm btn-danger"  onClick = "deleteDB('${element._id}')" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                </td>
+                                <td><a class="btn btn-sm btn-info" onClick="details('${element._id}','${element.title}','${element.content}')" href="#"><i class="fa fa-info" aria-hidden="true"></i> Details</a> </td>
+                            </tr>
+            `)
+            }
+        })
+    }
+
+    function taoPhanTrang() {
+        // console.log(totalItems);
+        $.ajax({
+            url: '/api/count',
+            method: "get"
+        }).then(function(data) {
+            $(".chuyenPages").pagination({
+                items: data,
+                itemsOnPage: 3,
+                cssStyle: 'light-theme',
+                onPageClick: function(pageNumber, event) {
+                    loadPage(pageNumber)
+                },
+            });
+        })
+    }
+    taoPhanTrang()
+    loadPage(1)
+
+
+    //ajax btn-add
+    $("#btn-add").click(() => {
+        let nameJob = $('#nameJob').val();
+        let leader = $('#leader').val();
+        body = {
+            nameJob,
+            leader
+        }
+        console.log(body);
+        $.ajax({
+            url: '/api/add',
+            method: 'post',
+            data: body
+        }).then((data) => {
+            alert('ADD JOB SUCCES');
+            window.location.href = '/admin'
+        })
+    })
+
+    //ajax btn-edit
+    function edit(id, editNameJob, editNameLeader) {
+        $('#showEdit').modal('show');
+        $('#editNameJob').val(editNameJob);
+        $('#editNameLeader').val(editNameLeader);
+        $('#btn-edit').off('click').on('click', () => {
+            let editNameJob = $('#editNameJob').val();
+            let editNameLeader = $('#editNameLeader').val();
+            bodyEdit = {
+                editNameJob,
+                editNameLeader
+            }
+            $.ajax({
+                url: '/api/edit/' + id,
+                method: 'put',
+                data: bodyEdit
+            }).then(data => {
+                // console.log($('#' + data.data[0].id));
+                $('#' + data.data[0]._id).find('.title').html(data.data[0].title)
+                $('#' + data.data[0]._id).find('.content').html(data.data[0].content)
+            })
+        })
+    }
+
+
+    //ajax btn-delete
+    function deleteDB(id) {
+        $.ajax({
+            url: "/api/delete/" + id,
+            method: "delete",
+        }).then(() => {
+            alert('Delete Thành Công');
+            window.location.href = '/admin'
+        })
+    }
+
+    //ajax btn-details
+    function details(id, detailsNameJob, detailsLeader) {
+        $('#showDetails').modal('show');
+        $('#detailsNameJob').val(detailsNameJob);
+        $('#detailsLeader').val(detailsLeader);
+    }
+
+
+    //btn-đăng xuất
+    $('#btn-logOut').click(function() {
+        document.cookie = "token=; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+        window.location.href = '/'
+    })
+</script>
